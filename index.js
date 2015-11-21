@@ -20,7 +20,7 @@
         return language + '-' + parts[1].toUpperCase();
     };
 
-    LocaleMapper.prototype.fallback = function (mappingConfig) {
+    LocaleMapper.prototype.fallback = function (mappingConfig, defaultLocale) {
         var currentLocale = this.normalize();
 
         for (var locale in mappingConfig) {
@@ -45,7 +45,7 @@
             return locale;
         }
 
-        return currentLocale;
+        return defaultLocale || null;
     };
 
     if (typeof module !== 'undefined' && module.exports) {

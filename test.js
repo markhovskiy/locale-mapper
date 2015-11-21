@@ -32,24 +32,36 @@ describe('normalize', function () {
 });
 
 describe('fallback', function () {
-    it('returns current locale if mapping is not matched', function () {
+    it('returns "null" if mapping is not matched and "defaultLocale" is not passed', function () {
         var localeMapper = new LocaleMapper({language: 'de-AT'});
-        expect(localeMapper.fallback({'en-US': ['en']})).to.equal('de-AT');
+        expect(localeMapper.fallback({'en-US': ['en']})).to.equal(null);
+    });
+
+    it('returns "defaultLocale" if passed and mapping is not matched', function () {
+        var localeMapper = new LocaleMapper({language: 'de-AT'});
+        expect(localeMapper.fallback({'es-ES': ['es']},
+                                     'en-US')).to.equal('en-US');
     });
 
     it('supports explicit mapping', function () {
-        var localeMapper = new LocaleMapper({language: 'de-AT'});
-        expect(localeMapper.fallback({'de-DE': ['de', 'de-DE', 'de-AT']})).to.equal('de-DE');
+        var localeMapper = new LocaleMapper({language: 'de-CH'});
+        expect(localeMapper.fallback({'de-DE': ['de',
+                                                'de-DE',
+                                                'de-AT'],
+                                      'de-CH': ['de-CH']})).to.equal('de-CH');
     });
 
     it('supports a language family wildcard', function () {
         var localeMapper = new LocaleMapper({language: 'de-AT'});
-        expect(localeMapper.fallback({'de': ['*']})).to.equal('de');
         expect(localeMapper.fallback({'de-DE': ['*']})).to.equal('de-DE');
+        expect(localeMapper.fallback({'en': ['*'],
+                                      'es': ['*'],
+                                      'de': ['*']})).to.equal('de');
     });
 
     it('supports wildcard exclusions', function () {
         var localeMapper = new LocaleMapper({language: 'pt-BR'});
-        expect(localeMapper.fallback({'pt-PT': ['*', '!pt-BR']})).to.equal('pt-BR');
+        expect(localeMapper.fallback({'pt-PT': ['*',
+                                                '!pt-BR']})).to.equal(null);
     });
 });
