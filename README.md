@@ -1,12 +1,23 @@
 # locale-mapper
 
-a library must work in both node and browser envs, all the `navigator`-based things should be optional/injectable
+[![Build Status](https://travis-ci.org/oleksmarkh/locale-mapper.svg)](https://travis-ci.org/oleksmarkh/locale-mapper)
+[![Dependency Status](https://david-dm.org/oleksmarkh/locale-mapper.svg)](https://david-dm.org/oleksmarkh/locale-mapper)
+[![Coverage Status](https://coveralls.io/repos/oleksmarkh/locale-mapper/badge.svg)](https://coveralls.io/github/oleksmarkh/locale-mapper)
 
 
-## features/todo
+## usage
 
-- [ ] standard normalization according to [RFC 4646](http://www.rfc-editor.org/rfc/rfc4646.txt)
-- [ ] apply fallback chains for languages from a same family, e.g. `de-CH -> de -> de-DE` ([ISO_639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes))
-- [ ] support both one- and two-way fallbacks, e.g. `en-US -> en`, `en-GB <-> en`
-- [ ] tolerate both underscore- and hyphen-separated locales, e.g. `ru-MD`, `ru_MD`
-- [ ] introduce fallback exclusions, e.g. `pt-BR` should or shouldn't map to `pt-PT`, depending on config
+```js
+var localeMapper = new LocaleMapper(navigator);
+
+localeMapper.normalize();     // 'en-US'
+localeMapper.normalize(true); // 'en', passing the "onlyLanguage" flag
+
+localeMapper.fallback({'de-DE': ['de',        // explicit mapping
+                                 'de-DE',
+                                 'de-AT'],
+                       'de-CH': ['de-CH'],    // another explicit mapping for the same family
+                       'es': ['*'],           // language family wildcard
+                       'pt-PT': ['*',
+                                 '!pt-BR']}); // wildcard exclusions
+```
