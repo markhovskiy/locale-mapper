@@ -1,14 +1,14 @@
 {
   "name": "locale-mapper",
   "version": "1.0.0",
-  "description": "provides locale/language mapping and fallback",
+  "description": "provides locale/language normalization and fallback",
   "main": "index.js",
   "devDependencies": {
-    "chai": "^3.4.1",
-    "coveralls": "^2.11.4",
-    "istanbul": "^0.4.0",
-    "jshint": "^2.8.0",
-    "mocha": "^2.3.4"
+    "chai": "3.4.1",
+    "coveralls": "2.11.4",
+    "istanbul": "0.4.0",
+    "jshint": "2.8.0",
+    "mocha": "2.3.4"
   },
   "scripts": {
     "lint": "jshint ./*.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/markhovskiy/locale-mapper.git"
+    "url": "git://github.com/oleksmarkh/locale-mapper.git"
   },
   "keywords": [
     "locale",
@@ -28,6 +28,6 @@
   "author": "Oleksii Markhovskyi",
   "license": "unlicense",
   "bugs": {
-    "url": "https://github.com/markhovskiy/locale-mapper/issues"
+    "url": "https://github.com/oleksmarkh/locale-mapper/issues"
   }
 }
